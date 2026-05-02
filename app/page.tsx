@@ -6,20 +6,30 @@ export default async function Home() {
     .select('*')
 
   return (
-    <main style={{ padding: "40px" }}>
-      <h1>Hotels from Supabase</h1>
+    <main style={{ padding: "40px", fontFamily: "Arial" }}>
+      <h1 style={{ marginBottom: "30px" }}>Hotels from Supabase</h1>
 
       {error && <p>Error: {error.message}</p>}
 
-      {data && data.length === 0 && <p>No hotels found</p>}
-
-      {data?.map((hotel) => (
-        <div key={hotel.id} style={{ marginBottom: "20px" }}>
-          <h2>{hotel.name}</h2>
-          <p>City: {hotel.city}</p>
-          <p>Price: ${hotel.price_min} - ${hotel.price_max}</p>
-        </div>
-      ))}
+      <div style={{ display: "grid", gap: "20px" }}>
+        {data?.map((hotel) => (
+          <div
+            key={hotel.id}
+            style={{
+              border: "1px solid #ddd",
+              borderRadius: "10px",
+              padding: "20px",
+              boxShadow: "0 2px 6px rgba(0,0,0,0.05)"
+            }}
+          >
+            <h2 style={{ marginBottom: "10px" }}>{hotel.name}</h2>
+            <p style={{ margin: "5px 0" }}>City: {hotel.city}</p>
+            <p style={{ margin: "5px 0" }}>
+              Price: ${hotel.price_min} - ${hotel.price_max}
+            </p>
+          </div>
+        ))}
+      </div>
     </main>
   )
 }
