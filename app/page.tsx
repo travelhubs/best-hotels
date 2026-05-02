@@ -1,13 +1,22 @@
-export default function Home() {
+import { supabase } from './lib/supabase'
+
+export default async function Home() {
+  const { data, error } = await supabase
+    .from('hotels')
+    .select('*')
+
   return (
     <main style={{ padding: "40px" }}>
-      <h1 style={{ fontSize: "28px", fontWeight: "bold" }}>
-        Best Hotels Project
-      </h1>
-      <p style={{ marginTop: "10px", color: "#666" }}>
-        Your AI-powered hotel ranking system is live.
-      </p>
-      <h1>It works 🚀</h1>
+      <h1>Hotels from Supabase</h1>
+
+      {error && <p>Error: {error.message}</p>}
+
+      {data?.map((hotel) => (
+        <div key={hotel.id}>
+          <h2>{hotel.name}</h2>
+          <p>{hotel.city}</p>
+        </div>
+      ))}
     </main>
   )
 }
